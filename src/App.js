@@ -1,15 +1,19 @@
 import { CssBaseline } from "@mui/material"
-import '@fontsource/roboto/300.css'
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
-import '@fontsource/roboto/700.css'
+import { Route, Routes } from "react-router-dom"
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 const App = () => {
 
     return (
         <>
             <CssBaseline/>
-            <h1>app</h1>
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/register" element={<Register/>}/>
+            </Routes>
         </>
     )
 }
