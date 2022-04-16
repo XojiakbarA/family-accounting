@@ -1,8 +1,8 @@
 import { CssBaseline } from "@mui/material"
 import { Route, Routes } from "react-router-dom"
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Register from './pages/Register'
+import Home from "./pages/Home"
+import Page404 from "./pages/404"
+import Dashboard from "./pages/Dashboard"
 
 const App = () => {
 
@@ -10,9 +10,9 @@ const App = () => {
         <>
             <CssBaseline/>
             <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
+                <Route index element={<Home/>}/>
+                <Route path="dashboard" element={<Dashboard/>}/>
+                <Route path="*" element={<Page404/>}/>
             </Routes>
         </>
     )
