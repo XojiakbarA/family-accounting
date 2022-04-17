@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import Page404 from "./pages/404"
 import Dashboard from "./pages/Dashboard"
 import FamilyMembers from "./pages/FamilyMembers"
+import MySnackbar from "./components/MySnackbar"
 
 const App = () => {
 
@@ -16,6 +17,7 @@ const App = () => {
                 <Route path="family-members" element={<FamilyMembers/>}/>
                 <Route path="*" element={<Page404/>}/>
             </Routes>
+            <MySnackbar/>
         </>
     )
 }

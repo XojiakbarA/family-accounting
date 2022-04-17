@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import { StrictMode } from 'react'
 import { BrowserRouter } from 'react-router-dom'
-import { UserProvider } from './context/UserContext'
+import { AppProvider } from './context/AppProvider'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import '@fontsource/roboto/300.css'
@@ -13,9 +13,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <StrictMode>
         <BrowserRouter>
-            <UserProvider>
+            <AppProvider>
                 <App/>
-            </UserProvider>
+            </AppProvider>
         </BrowserRouter>
     </StrictMode>
 )
