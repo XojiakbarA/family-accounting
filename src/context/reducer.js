@@ -1,7 +1,15 @@
-import { SET_SNACKBAR, SET_USER } from "./types"
+import { SET_AUTH_DIALOG, SET_LOADING, SET_SNACKBAR, SET_USER } from "./types"
 
 export const reducer = (state, action) => {
     switch (action.type) {
+
+        case SET_LOADING:
+            return { ...state, loading: action.payload }
+
+        case SET_AUTH_DIALOG:
+            return { ...state, authDialog: action.payload }
+    
+
         case SET_USER:
             return { ...state, user: action.payload }
 
@@ -14,8 +22,8 @@ export const reducer = (state, action) => {
                     color: action.payload.color
                 }
             }
-    
+
         default:
-            break;
+            return state
     }
 }

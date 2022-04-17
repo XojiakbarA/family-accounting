@@ -9,6 +9,11 @@ export const fetchUser = async () => {
     return await instance.get('api/user')
 }
 
+export const registerUser = async (data) => {
+    await instance.get('sanctum/csrf-cookie')
+    return await instance.post('register', data)
+}
+
 export const loginUser = async (data) => {
     await instance.get('sanctum/csrf-cookie')
     return await instance.post('login', data)

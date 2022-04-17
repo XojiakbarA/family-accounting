@@ -1,12 +1,20 @@
 import { Button, Checkbox, FormControlLabel, Stack, TextField, Typography } from "@mui/material"
-import { useFormik } from 'formik'
-import { loginValidationSchema } from "../../utils/validate"
-import { login } from "../../context/asyncActions"
+import { LoadingButton } from "@mui/lab"
+import LoginIcon from '@mui/icons-material/Login'
+import CloseIcon from '@mui/icons-material/Close'
+import { useFormik } from "formik"
 import { useDispatch } from "../../hooks/useDispatch"
+import { login } from "../../context/asyncActions"
+import { loginValidationSchema } from "../../utils/validate"
+import { useStore } from "../../hooks/useStore"
+import { useNavigate } from "react-router-dom"
 
 const LoginForm = ({ handleCloseDialog, handleToggleForm }) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const loading = useStore(store => store.loading)
 
     const { handleSubmit, getFieldProps, touched, errors } = useFormik({
         initialValues: {
@@ -16,7 +24,7 @@ const LoginForm = ({ handleCloseDialog, handleToggleForm }) => {
         },
         validationSchema: loginValidationSchema,
         onSubmit: async (data, { setSubmitting }) => {
-            await login(dispatch, data)
+            await login(dispatch, data, navigate)
         }
     })
 
@@ -50,15 +58,18 @@ const LoginForm = ({ handleCloseDialog, handleToggleForm }) => {
                         Forgot your password? <Button size='small'>Reset It</Button>
                     </Typography>
                 </Stack>
-                <Button
+                <LoadingButton
                     variant="contained"
                     type="submit"
+                    loading={loading}
+                    startIcon={<LoginIcon/>}
                 >
                     Login
-                </Button>
+                </LoadingButton>
                 <Button
                     variant="outlined"
                     onClick={handleCloseDialog}
+                    startIcon={<CloseIcon/>}
                 >
                     Cancel
                 </Button>

@@ -10,7 +10,7 @@ const MySnackbar = () => {
     const { open, text, color } = useStore(store => store.snackbar)
 
     const handleClose = () => {
-        dispatch(setSnackbar(false, null, 'error'))
+        dispatch(setSnackbar(false, null, color))
     }
 
     return (

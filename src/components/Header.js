@@ -1,13 +1,11 @@
 import { useState } from "react"
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from "@mui/material"
+import { AppBar, Box, Toolbar, Container, Button } from "@mui/material"
 import PaidIcon from '@mui/icons-material/Paid'
-import EditIcon from '@mui/icons-material/Edit'
-import GroupIcon from '@mui/icons-material/Group'
-import LogoutIcon from '@mui/icons-material/Logout'
 import { Link } from "react-router-dom"
 import MyDialog from "./Dialog"
 import AmountForm from "./forms/AmountForm"
 import ProfileForm from "./forms/ProfileForm"
+import ProfileMenu from "./ProfileMenu"
 
 const Header = () => {
 
@@ -17,7 +15,8 @@ const Header = () => {
     const handleOpenAmountDialog = () => {
         setOpen(prev => ({ ...prev, amount: true }))
     }
-    const handleOpenEditProfileDialog = () => {
+    const handleOpenEditProfileDialog = (handleCloseUserMenu) => {
+        handleCloseUserMenu()
         setOpen(prev => ({ ...prev, editProfile: true }))
     }
     const handleCloseAmountDialog = () => {
@@ -33,33 +32,19 @@ const Header = () => {
         setAnchorElUser(null)
     }
 
-    const menu = [
-        {
-            title: 'Edit Profile',
-            icon: <EditIcon fontSize="small"/>,
-            onClick: () => {
-                handleCloseUserMenu()
-                handleOpenEditProfileDialog()
-            }
-        },
-        {
-            title: 'Family Members',
-            icon: <GroupIcon fontSize="small"/>,
-            onClick: handleCloseUserMenu,
-            component: Link,
-            href: '/family-members'
-        },
-        {
-            title: 'Logout',
-            icon: <LogoutIcon fontSize="small"/>,
-            onClick: handleCloseUserMenu
-        }
-    ]
-
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                    <Box flexGrow={0}>
+                        <Button
+                            color="inherit"
+                            component={Link}
+                            to='/'
+                        >
+                            Home
+                        </Button>
+                    </Box>
                     <Box flexGrow={0}>
                         <Button
                             color="inherit"
@@ -84,41 +69,12 @@ const Header = () => {
                         </Button>
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Profile Menu">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
+                        <ProfileMenu
                             anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {
-                                menu.map(({ title, icon, component, href, onClick }) => (
-                                    <MenuItem
-                                        key={title}
-                                        onClick={onClick}
-                                        component={component}
-                                        to={href}
-                                    >
-                                        {icon}
-                                        <Typography marginLeft={1}>{title}</Typography>
-                                    </MenuItem>
-                                ))
-                            }
-                        </Menu>
+                            handleOpenMenu={handleOpenUserMenu}
+                            handleCloseMenu={handleCloseUserMenu}
+                            handleOpenEditProfileDialog={handleOpenEditProfileDialog}
+                        />
                     </Box>
                     <MyDialog
                         title="Add Amount"
