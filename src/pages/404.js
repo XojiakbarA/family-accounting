@@ -25,9 +25,11 @@ const Page404 = () => {
                 <Button
                     variant='outlined'
                     size='small'
-                    to='/'
+                    to='/dashboard'
                     component={Link}
-                >Go Home</Button>
+                >
+                    Go Home
+                </Button>
             </Stack>
         </Box>
     )
