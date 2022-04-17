@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import Page404 from "./pages/404"
 import Dashboard from "./pages/Dashboard"
+import FamilyMembers from "./pages/FamilyMembers"
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
             <Routes>
                 <Route index element={<Home/>}/>
                 <Route path="dashboard" element={<Dashboard/>}/>
+                <Route path="family-members" element={<FamilyMembers/>}/>
                 <Route path="*" element={<Page404/>}/>
             </Routes>
         </>
