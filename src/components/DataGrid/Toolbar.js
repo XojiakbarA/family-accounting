@@ -3,7 +3,7 @@ import { GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelec
 import AddIcon from '@mui/icons-material/Add'
 
 
-const MyToolbar = ({ onAddMemberClick }) => {
+const MyToolbar = ({ onAddClick }) => {
 
     return (
         <GridToolbarContainer>
@@ -11,13 +11,19 @@ const MyToolbar = ({ onAddMemberClick }) => {
             <GridToolbarFilterButton/>
             <GridToolbarDensitySelector/>
             <GridToolbarExport/>
-            <Button
-                size="small"
-                startIcon={<AddIcon/>}
-                onClick={onAddMemberClick}
-            >
-                Add Member
-            </Button>
+            {
+                onAddClick
+                ?
+                <Button
+                    size="small"
+                    startIcon={<AddIcon/>}
+                    onClick={onAddClick}
+                >
+                    Add Member
+                </Button>
+                :
+                null
+            }
         </GridToolbarContainer>
     )
 }

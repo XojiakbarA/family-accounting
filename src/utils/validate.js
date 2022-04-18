@@ -47,3 +47,18 @@ export const memberValidationSchema = yup.object({
         .string('Enter Job')
         .required('Job is required')
 })
+
+export const financeValidationSchema = yup.object({
+    category_id: yup
+        .number('Select Category')
+        .required('Category is required'),
+    sub_category_id: yup
+        .number('Select Sub Category')
+        .required('Sub Category is required'),
+    member_id: yup
+        .number('Select Family Member')
+        .required('Family Member is required'),
+    amount: yup
+        .string('Enter Amount')
+        .required('Amount is required')
+})

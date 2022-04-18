@@ -2,18 +2,19 @@ import { Container, Grid } from "@mui/material"
 import GroupIcon from '@mui/icons-material/Group'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
+import PersonOffIcon from '@mui/icons-material/PersonOff'
 import Header from "../components/Header"
 import PageTitle from "../components/PageTitle"
 import MyDataGrid from "../components/DataGrid/DataGrid"
 import MyDialog from '../components/Dialog'
+import ConfirmDialog from "../components/dialogs/ConfirmDialog"
 import MemberForm from "../components/forms/MemberForm"
+import Actions from "../components/DataGrid/Actions"
 import { useEffect, useState } from "react"
 import { createMember, deleteMember, editMember, getMembers } from "../context/asyncActions"
 import { useStore } from "../hooks/useStore"
 import { useDispatch } from "../hooks/useDispatch"
-import Actions from "../components/DataGrid/Actions"
-import { setMember } from "../context/actions"
-import ConfirmDialog from "../components/dialogs/ConfirmDialog"
+import { setMember, setMembers } from "../context/actions"
 
 const FamilyMembers = () => {
 
@@ -63,6 +64,9 @@ const FamilyMembers = () => {
 
     useEffect(() => {
         getMembers(dispatch)
+        return () => {
+            dispatch(setMembers([]))
+        }
     }, [dispatch])
 
     const columns = [
@@ -106,44 +110,48 @@ const FamilyMembers = () => {
                             loading={loading}
                             hideFooterPagination
                             handleOpenDialog={handleOpenAddDialog}
+                            noRowsOverlayProps={{
+                                icon: <PersonOffIcon color="disabled" fontSize="large"/>,
+                                text: 'No Family Members'
+                            }}
                         />
                     </Grid>
-                    <MyDialog
-                        title="Add Member"
-                        open={add}
-                        onClose={handleCloseDialog}
-                    >
-                        <MemberForm
-                            buttonText="Create"
-                            buttonIcon={<AddIcon/>}
-                            initialValues={addInitValues}
-                            onSubmit={handleCreateSumbit}
-                            handleCloseDialog={handleCloseDialog}
-                        />
-                    </MyDialog>
-                    <MyDialog
-                        title="Edit Member"
-                        open={edit}
-                        onClose={handleCloseDialog}
-                    >
-                        <MemberForm
-                            buttonText="Edit"
-                            buttonIcon={<EditIcon/>}
-                            initialValues={editInitValues}
-                            onSubmit={handleEditSumbit}
-                            handleCloseDialog={handleCloseDialog}
-                        />
-                    </MyDialog>
-                    <ConfirmDialog
-                        title="Delete"
-                        content="Are you sure you want to delete edit member?"
-                        loading={loading}
-                        open={drop}
-                        onClose={handleCloseDialog}
-                        handleConfirmClick={handleDeleteSubmit}
-                    />
                 </Grid>
             </Container>
+            <MyDialog
+                title="Add Member"
+                open={add}
+                onClose={handleCloseDialog}
+            >
+                <MemberForm
+                    buttonText="Create"
+                    buttonIcon={<AddIcon/>}
+                    initialValues={addInitValues}
+                    onSubmit={handleCreateSumbit}
+                    handleCloseDialog={handleCloseDialog}
+                />
+            </MyDialog>
+            <MyDialog
+                title="Edit Member"
+                open={edit}
+                onClose={handleCloseDialog}
+            >
+                <MemberForm
+                    buttonText="Edit"
+                    buttonIcon={<EditIcon/>}
+                    initialValues={editInitValues}
+                    onSubmit={handleEditSumbit}
+                    handleCloseDialog={handleCloseDialog}
+                />
+            </MyDialog>
+            <ConfirmDialog
+                title="Delete"
+                content="Do you really want to delete this member?"
+                loading={loading}
+                open={drop}
+                onClose={handleCloseDialog}
+                handleConfirmClick={handleDeleteSubmit}
+            />
         </>
     )
 }

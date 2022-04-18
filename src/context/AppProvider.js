@@ -18,7 +18,11 @@ export const AppProvider = ({ children }) => {
             color: null
         },
         members: [],
-        member: null
+        member: null,
+        categories: [],
+        subCategories: [],
+        finances: [],
+        finance: null,
     }
 
     const [state, dispatch] = useReducer(reducer, initState)

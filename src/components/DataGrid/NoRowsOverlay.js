@@ -1,7 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material"
-import PersonOffIcon from '@mui/icons-material/PersonOff'
 
-const MyNoRowsOverlay = () => {
+const MyNoRowsOverlay = ({ icon, text }) => {
 
     return (
         <Box
@@ -12,8 +11,8 @@ const MyNoRowsOverlay = () => {
             alignItems="center"
         >
             <Stack alignItems="center" spacing={1}>
-                <PersonOffIcon fontSize="large" color="disabled"/>
-                <Typography variant="body2">No Family Members</Typography>
+                {icon}
+                <Typography variant="body2">{text}</Typography>
             </Stack>
         </Box>
     )

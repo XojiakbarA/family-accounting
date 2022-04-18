@@ -2,8 +2,18 @@ export const SET_LOADING = 'SET_LOADING'
 export const SET_AUTH_DIALOG = 'SET_AUTH_DIALOG'
 export const SET_USER = 'SET_USER'
 export const SET_SNACKBAR = 'SET_SNACKBAR'
+
 export const SET_MEMBERS = 'SET_MEMBERS'
 export const SET_MEMBER = 'SET_MEMBER'
 export const ADD_MEMBER = 'ADD_MEMBER'
 export const CHANGE_MEMBER = 'CHANGE_MEMBER'
 export const DROP_MEMBER = 'DROP_MEMBER'
+
+export const SET_FINANCES = 'SET_FINANCES'
+export const SET_FINANCE = 'SET_FINANCE'
+export const ADD_FINANCE = 'ADD_FINANCE'
+export const CHANGE_FINANCE = 'CHANGE_FINANCE'
+export const DROP_FINANCE = 'DROP_FINANCE'
+
+export const SET_CATEGORIES = 'SET_CATEGORIES'
+export const SET_SUB_CATEGORIES = 'SET_SUB_CATEGORIES'

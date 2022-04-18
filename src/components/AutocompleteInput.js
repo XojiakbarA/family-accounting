@@ -23,10 +23,10 @@ const AutocompleteInput = ({
                     name={name}
                     InputProps={{
                         ...params.InputProps,
-                        startAdornment: (
+                        endAdornment: (
                             <>
-                                {loading ? <CircularProgress size={20}/> : null}
-                                {params.InputProps.startAdornment}
+                                {loading ? <CircularProgress size={20} sx={{ marginRight: 4 }}/> : null}
+                                {params.InputProps.endAdornment}
                             </>
                         )
                     }}

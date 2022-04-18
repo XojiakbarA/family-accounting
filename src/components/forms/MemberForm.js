@@ -12,7 +12,7 @@ const MemberForm = ({ buttonText, buttonIcon, initialValues, onSubmit, handleClo
     const { handleSubmit, getFieldProps, touched, errors } = useFormik({
         initialValues,
         validationSchema: memberValidationSchema,
-        onSubmit: (data, { setFieldError }) => onSubmit(data, setFieldError)
+        onSubmit: onSubmit
     })
 
     return (

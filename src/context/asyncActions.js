@@ -1,5 +1,5 @@
-import { destroyMember, fetchMembers, fetchUser, loginUser, logoutUser, registerUser, storeMember, updateMember } from "../api"
-import { addMember, changeMember, dropMember, setAuthDialog, setLoading, setMembers, setSnackbar, setUser } from "./actions"
+import { destroyFinance, destroyMember, fetchCategories, fetchFinances, fetchMembers, fetchSubCategories, fetchUser, loginUser, logoutUser, registerUser, storeFinance, storeMember, updateFinance, updateMember } from "../api"
+import { addFinance, addMember, changeFinance, changeMember, dropFinance, dropMember, setAuthDialog, setCategories, setFinances, setLoading, setMembers, setSnackbar, setSubCategories, setUser } from "./actions"
 
 export const register = async (dispatch, data, navigate, setFieldError) => {
     try {
@@ -118,6 +118,98 @@ export const deleteMember = async (dispatch, id, handleCloseDialog) => {
             dispatch(setLoading(false))
             handleCloseDialog()
             dispatch(setSnackbar(true, 'Member deleted successfully!', 'success'))
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getFinances = async (dispatch) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await fetchFinances()
+        if (res.status === 200) {
+            dispatch(setFinances(res.data.data))
+            dispatch(setLoading(false))
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const createFinance = async (dispatch, data, handleCloseDialog, setFieldError) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await storeFinance(data)
+        if (res.status === 201) {
+            dispatch(addFinance(res.data.data))
+            dispatch(setLoading(false))
+            handleCloseDialog()
+            dispatch(setSnackbar(true, 'Finance created successfully!', 'success'))
+        }
+    } catch ({ response }) {
+        if (response.status === 422) {
+            dispatch(setLoading(false))
+            const errors = Object.entries(response.data.errors)
+            errors.forEach(item => setFieldError(item[0], item[1][0]))
+        }
+    }
+}
+
+export const editFinance = async (dispatch, id, data, handleCloseDialog, setFieldError) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await updateFinance(id, data)
+        if (res.status === 200) {
+            dispatch(changeFinance(res.data.data))
+            dispatch(setLoading(false))
+            handleCloseDialog()
+            dispatch(setSnackbar(true, 'Finance updated successfully!', 'success'))
+        }
+    } catch ({ response }) {
+        if (response.status === 422) {
+            dispatch(setLoading(false))
+            const errors = Object.entries(response.data.errors)
+            errors.forEach(item => setFieldError(item[0], item[1][0]))
+        }
+    }
+}
+
+export const deleteFinance = async (dispatch, id, handleCloseDialog) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await destroyFinance(id)
+        if (res.status === 204) {
+            dispatch(dropFinance(id))
+            dispatch(setLoading(false))
+            handleCloseDialog()
+            dispatch(setSnackbar(true, 'Finance deleted successfully!', 'success'))
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getCategories = async (dispatch, category_id) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await fetchCategories()
+        if (res.status === 200) {
+            dispatch(setCategories(res.data.data))
+            dispatch(setLoading(false))
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getSubCategories = async (dispatch, category_id) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await fetchSubCategories(category_id)
+        if (res.status === 200) {
+            dispatch(setSubCategories(res.data.data))
+            dispatch(setLoading(false))
         }
     } catch (e) {
         console.log(e)

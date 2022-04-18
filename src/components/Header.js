@@ -1,13 +1,18 @@
 import { useState } from "react"
 import { AppBar, Box, Toolbar, Container, Button } from "@mui/material"
 import PaidIcon from '@mui/icons-material/Paid'
+import AddIcon from '@mui/icons-material/Add'
 import { Link } from "react-router-dom"
 import MyDialog from "./Dialog"
-import AmountForm from "./forms/AmountForm"
+import FinanceForm from "./forms/FinanceForm"
 import ProfileForm from "./forms/ProfileForm"
 import ProfileMenu from "./ProfileMenu"
+import { useDispatch } from "../hooks/useDispatch"
+import { createFinance } from "../context/asyncActions"
 
 const Header = () => {
+
+    const dispatch = useDispatch()
 
     const [{ amount, editProfile }, setOpen] = useState({ amount: false, editProfile: false })
     const [anchorElUser, setAnchorElUser] = useState(null)
@@ -30,6 +35,9 @@ const Header = () => {
     }
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
+    }
+    const handleCreateSumbit = (data, { setFieldError }) => {
+        createFinance(dispatch, data, handleCloseAmountDialog, setFieldError)
     }
 
     return (
@@ -65,7 +73,7 @@ const Header = () => {
                             startIcon={<PaidIcon/>}
                             onClick={handleOpenAmountDialog}
                         >
-                            Add Amount
+                            Add Finance
                         </Button>
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
@@ -81,7 +89,12 @@ const Header = () => {
                         open={amount}
                         onClose={handleCloseAmountDialog}
                     >
-                        <AmountForm handleCloseDialog={handleCloseAmountDialog}/>
+                        <FinanceForm
+                            buttonText="Add"
+                            buttonIcon={<AddIcon/>}
+                            onSubmit={handleCreateSumbit}
+                            handleCloseDialog={handleCloseAmountDialog}
+                        />
                     </MyDialog>
                     <MyDialog
                         title="Edit Profile"

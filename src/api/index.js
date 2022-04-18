@@ -38,3 +38,27 @@ export const updateMember = async (id, data) => {
 export const destroyMember = async (id) => {
     return await instance.delete(`api/members/${id}`)
 }
+
+export const fetchFinances = async () => {
+    return await instance.get('api/finances')
+}
+
+export const storeFinance = async (data) => {
+    return await instance.post('api/finances', data)
+}
+
+export const updateFinance = async (id, data) => {
+    return await instance.put(`api/finances/${id}`, data)
+}
+
+export const destroyFinance = async (id) => {
+    return await instance.delete(`api/finances/${id}`)
+}
+
+export const fetchCategories = async () => {
+    return await instance.get('api/categories')
+}
+
+export const fetchSubCategories = async (category_id) => {
+    return await instance.get(`api/categories/${category_id}/sub-categories`)
+}

@@ -1,10 +1,13 @@
 import { Paper } from "@mui/material"
 import { DataGrid } from "@mui/x-data-grid"
 import MyLoadingOverlay from "./LoadingOverlay"
-import MyNoRowsOverlay from "./MyNoRowsOverlay"
+import MyNoRowsOverlay from "./NoRowsOverlay"
 import MyToolbar from "./Toolbar"
 
-const MyDataGrid = ({ rows, columns, loading, hideFooterPagination, handleOpenDialog }) => {
+const MyDataGrid = ({
+    rows, columns, loading, hideFooterPagination, handleOpenDialog,
+    noRowsOverlayProps
+}) => {
 
     return (
         <Paper>
@@ -28,8 +31,8 @@ const MyDataGrid = ({ rows, columns, loading, hideFooterPagination, handleOpenDi
                             }
                         }
                     },
-                    toolbar: {onAddMemberClick: handleOpenDialog},
-                    loadingOverlay: {  }
+                    toolbar: { onAddClick: handleOpenDialog },
+                    noRowsOverlay: { icon: noRowsOverlayProps.icon, text: noRowsOverlayProps.text }
                 }}
             />
         </Paper>
