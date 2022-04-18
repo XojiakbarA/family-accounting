@@ -17,7 +17,8 @@ export const AppProvider = ({ children }) => {
             text: null,
             color: null
         },
-        members: []
+        members: [],
+        member: null
     }
 
     const [state, dispatch] = useReducer(reducer, initState)

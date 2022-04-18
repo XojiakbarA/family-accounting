@@ -1,4 +1,4 @@
-import { ADD_MEMBER, SET_AUTH_DIALOG, SET_LOADING, SET_MEMBERS, SET_SNACKBAR, SET_USER } from "./types";
+import { ADD_MEMBER, CHANGE_MEMBER, DROP_MEMBER, SET_AUTH_DIALOG, SET_LOADING, SET_MEMBER, SET_MEMBERS, SET_SNACKBAR, SET_USER } from "./types";
 
 export const setLoading = (bool) => ({
     type: SET_LOADING,
@@ -25,7 +25,22 @@ export const setMembers = (members) => ({
     payload: members
 })
 
+export const setMember = (id) => ({
+    type: SET_MEMBER,
+    payload: { id }
+})
+
 export const addMember = (member) => ({
     type: ADD_MEMBER,
     payload: member
+})
+
+export const changeMember = (member) => ({
+    type: CHANGE_MEMBER,
+    payload: member
+})
+
+export const dropMember = (id) => ({
+    type: DROP_MEMBER,
+    payload: { id }
 })

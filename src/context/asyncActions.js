@@ -1,5 +1,5 @@
-import { fetchMembers, fetchUser, loginUser, logoutUser, registerUser, storeMember } from "../api"
-import { addMember, setAuthDialog, setLoading, setMembers, setSnackbar, setUser } from "./actions"
+import { destroyMember, fetchMembers, fetchUser, loginUser, logoutUser, registerUser, storeMember, updateMember } from "../api"
+import { addMember, changeMember, dropMember, setAuthDialog, setLoading, setMembers, setSnackbar, setUser } from "./actions"
 
 export const register = async (dispatch, data, navigate, setFieldError) => {
     try {
@@ -87,5 +87,39 @@ export const createMember = async (dispatch, data, handleCloseDialog, setFieldEr
             const errors = Object.entries(response.data.errors)
             errors.forEach(item => setFieldError(item[0], item[1][0]))
         }
+    }
+}
+
+export const editMember = async (dispatch, id, data, handleCloseDialog, setFieldError) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await updateMember(id, data)
+        if (res.status === 200) {
+            dispatch(changeMember(res.data.data))
+            dispatch(setLoading(false))
+            handleCloseDialog()
+            dispatch(setSnackbar(true, 'Member updated successfully!', 'success'))
+        }
+    } catch ({ response }) {
+        if (response.status === 422) {
+            dispatch(setLoading(false))
+            const errors = Object.entries(response.data.errors)
+            errors.forEach(item => setFieldError(item[0], item[1][0]))
+        }
+    }
+}
+
+export const deleteMember = async (dispatch, id, handleCloseDialog) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await destroyMember(id)
+        if (res.status === 204) {
+            dispatch(dropMember(id))
+            dispatch(setLoading(false))
+            handleCloseDialog()
+            dispatch(setSnackbar(true, 'Member deleted successfully!', 'success'))
+        }
+    } catch (e) {
+        console.log(e)
     }
 }

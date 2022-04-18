@@ -1,28 +1,18 @@
 import { Button, Stack, TextField } from "@mui/material"
 import { LoadingButton } from "@mui/lab"
-import AddIcon from '@mui/icons-material/Add'
 import CloseIcon from '@mui/icons-material/Close'
 import { useFormik } from "formik"
-import { useDispatch } from "../../hooks/useDispatch"
 import { useStore } from '../../hooks/useStore'
 import { memberValidationSchema } from "../../utils/validate"
-import { createMember } from "../../context/asyncActions"
 
-const MemberForm = ({ handleCloseDialog }) => {
+const MemberForm = ({ buttonText, buttonIcon, initialValues, onSubmit, handleCloseDialog }) => {
 
-    const dispatch = useDispatch()
     const loading = useStore(store => store.loading)
 
     const { handleSubmit, getFieldProps, touched, errors } = useFormik({
-        initialValues: {
-            first_name: '',
-            last_name: '',
-            job: ''
-        },
+        initialValues,
         validationSchema: memberValidationSchema,
-        onSubmit: (data, { setFieldError }) => {
-            createMember(dispatch, data, handleCloseDialog, setFieldError)
-        }
+        onSubmit: (data, { setFieldError }) => onSubmit(data, setFieldError)
     })
 
     return (
@@ -57,9 +47,9 @@ const MemberForm = ({ handleCloseDialog }) => {
                         variant="contained"
                         type="sumbit"
                         loading={loading}
-                        startIcon={<AddIcon/>}
+                        startIcon={buttonIcon}
                     >
-                        Create
+                        {buttonText}
                     </LoadingButton>
                     <Button
                         variant="outlined"

@@ -30,3 +30,11 @@ export const fetchMembers = async () => {
 export const storeMember = async (data) => {
     return await instance.post('api/members', data)
 }
+
+export const updateMember = async (id, data) => {
+    return await instance.put(`api/members/${id}`, data)
+}
+
+export const destroyMember = async (id) => {
+    return await instance.delete(`api/members/${id}`)
+}
