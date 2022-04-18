@@ -1,5 +1,5 @@
-import { fetchUser, loginUser, logoutUser, registerUser } from "../api"
-import { setAuthDialog, setLoading, setSnackbar, setUser } from "./actions"
+import { fetchMembers, fetchUser, loginUser, logoutUser, registerUser, storeMember } from "../api"
+import { addMember, setAuthDialog, setLoading, setMembers, setSnackbar, setUser } from "./actions"
 
 export const register = async (dispatch, data, navigate, setFieldError) => {
     try {
@@ -55,5 +55,37 @@ export const logout = async (dispatch, navigate, handleCloseMenu) => {
         }
     } catch (e) {
         console.log(e)
+    }
+}
+
+export const getMembers = async (dispatch) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await fetchMembers()
+        if (res.status === 200) {
+            dispatch(setMembers(res.data.data))
+            dispatch(setLoading(false))
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const createMember = async (dispatch, data, handleCloseDialog, setFieldError) => {
+    try {
+        dispatch(setLoading(true))
+        const res = await storeMember(data)
+        if (res.status === 201) {
+            dispatch(addMember(res.data.data))
+            dispatch(setLoading(false))
+            handleCloseDialog()
+            dispatch(setSnackbar(true, 'Member created successfully!', 'success'))
+        }
+    } catch ({ response }) {
+        if (response.status === 422) {
+            dispatch(setLoading(false))
+            const errors = Object.entries(response.data.errors)
+            errors.forEach(item => setFieldError(item[0], item[1][0]))
+        }
     }
 }

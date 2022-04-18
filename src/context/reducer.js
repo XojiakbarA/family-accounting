@@ -1,4 +1,4 @@
-import { SET_AUTH_DIALOG, SET_LOADING, SET_SNACKBAR, SET_USER } from "./types"
+import { ADD_MEMBER, SET_AUTH_DIALOG, SET_LOADING, SET_MEMBERS, SET_SNACKBAR, SET_USER } from "./types"
 
 export const reducer = (state, action) => {
     switch (action.type) {
@@ -22,6 +22,12 @@ export const reducer = (state, action) => {
                     color: action.payload.color
                 }
             }
+
+        case SET_MEMBERS:
+            return { ...state, members: action.payload }
+
+        case ADD_MEMBER:
+            return { ...state, members: state.members.concat(action.payload) }
 
         default:
             return state

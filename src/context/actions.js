@@ -1,4 +1,4 @@
-import { SET_AUTH_DIALOG, SET_LOADING, SET_SNACKBAR, SET_USER } from "./types";
+import { ADD_MEMBER, SET_AUTH_DIALOG, SET_LOADING, SET_MEMBERS, SET_SNACKBAR, SET_USER } from "./types";
 
 export const setLoading = (bool) => ({
     type: SET_LOADING,
@@ -18,4 +18,14 @@ export const setUser = (user) => ({
 export const setSnackbar = (open, text, color) => ({
     type: SET_SNACKBAR,
     payload: { open, text, color }
+})
+
+export const setMembers = (members) => ({
+    type: SET_MEMBERS,
+    payload: members
+})
+
+export const addMember = (member) => ({
+    type: ADD_MEMBER,
+    payload: member
 })

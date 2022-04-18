@@ -35,3 +35,15 @@ export const registerValidationSchema = yup.object({
                     )
             })
 })
+
+export const memberValidationSchema = yup.object({
+    first_name: yup
+        .string('Enter First Name')
+        .required('First Name is required'),
+    last_name: yup
+        .string('Enter Last Name')
+        .required('Last Name is required'),
+    job: yup
+        .string('Enter Job')
+        .required('Job is required')
+})

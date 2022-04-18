@@ -22,3 +22,11 @@ export const loginUser = async (data) => {
 export const logoutUser = async () => {
     return await instance.post('logout')
 }
+
+export const fetchMembers = async () => {
+    return await instance.get('api/members')
+}
+
+export const storeMember = async (data) => {
+    return await instance.post('api/members', data)
+}
