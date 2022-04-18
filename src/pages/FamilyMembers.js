@@ -108,6 +108,7 @@ const FamilyMembers = () => {
                             rows={members}
                             columns={columns}
                             loading={loading}
+                            disableColumnFilter
                             hideFooterPagination
                             handleOpenDialog={handleOpenAddDialog}
                             noRowsOverlayProps={{

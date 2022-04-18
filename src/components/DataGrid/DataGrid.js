@@ -6,7 +6,7 @@ import MyToolbar from "./Toolbar"
 
 const MyDataGrid = ({
     rows, columns, loading, hideFooterPagination, handleOpenDialog,
-    noRowsOverlayProps
+    noRowsOverlayProps, disableColumnFilter
 }) => {
 
     return (
@@ -14,6 +14,7 @@ const MyDataGrid = ({
             <DataGrid
                 autoHeight
                 disableColumnMenu
+                disableColumnFilter={disableColumnFilter}
                 loading={loading}
                 hideFooterPagination={hideFooterPagination}
                 rows={rows}

@@ -14,18 +14,18 @@ const Header = () => {
 
     const dispatch = useDispatch()
 
-    const [{ amount, editProfile }, setOpen] = useState({ amount: false, editProfile: false })
+    const [{ finance, editProfile }, setOpen] = useState({ finance: false, editProfile: false })
     const [anchorElUser, setAnchorElUser] = useState(null)
 
     const handleOpenAmountDialog = () => {
-        setOpen(prev => ({ ...prev, amount: true }))
+        setOpen(prev => ({ ...prev, finance: true }))
     }
     const handleOpenEditProfileDialog = (handleCloseUserMenu) => {
         handleCloseUserMenu()
         setOpen(prev => ({ ...prev, editProfile: true }))
     }
     const handleCloseAmountDialog = () => {
-        setOpen(prev => ({ ...prev, amount: false }))
+        setOpen(prev => ({ ...prev, finance: false }))
     }
     const handleCloseEditProfileDialog = () => {
         setOpen(prev => ({ ...prev, editProfile: false }))
@@ -85,8 +85,8 @@ const Header = () => {
                         />
                     </Box>
                     <MyDialog
-                        title="Add Amount"
-                        open={amount}
+                        title="Add Finance"
+                        open={finance}
                         onClose={handleCloseAmountDialog}
                     >
                         <FinanceForm

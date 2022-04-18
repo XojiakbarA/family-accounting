@@ -15,7 +15,7 @@ import { useStore } from "../hooks/useStore"
 import { useEffect, useState } from "react"
 import { deleteFinance, editFinance, getFinances } from "../context/asyncActions"
 import { useDispatch } from "../hooks/useDispatch"
-import { setFinance } from "../context/actions"
+import { setFinance, setFinances } from "../context/actions"
 
 const Dashboard = () => {
 
@@ -49,6 +49,9 @@ const Dashboard = () => {
 
     useEffect(() => {
         getFinances(dispatch)
+        return () => {
+            dispatch(setFinances([]))
+        }
     }, [dispatch])
 
     const columns = [

@@ -10,6 +10,7 @@ import { getCategories, getMembers, getSubCategories } from "../../context/async
 import { useDispatch } from "../../hooks/useDispatch"
 import { useFormik } from "formik"
 import { financeValidationSchema } from '../../utils/validate'
+import { setCategories, setMembers, setSubCategories } from "../../context/actions"
 
 const FinanceForm = ({ finance, onSubmit, buttonText, buttonIcon, handleCloseDialog }) => {
 
@@ -56,6 +57,11 @@ const FinanceForm = ({ finance, onSubmit, buttonText, buttonIcon, handleCloseDia
             getSubCategories(dispatch, values.category_id)
         }
         getMembers(dispatch)
+        return () => {
+            setCategories([])
+            setSubCategories([])
+            setMembers([])
+        }
     }, [dispatch, values.category_id])
 
     return (
@@ -93,7 +99,7 @@ const FinanceForm = ({ finance, onSubmit, buttonText, buttonIcon, handleCloseDia
                                 />
                             ))
                             :
-                            <CircularProgress/>
+                            <CircularProgress size={25}/>
                         }
                     </RadioGroup>
                     <FormHelperText>{touched.category_id && errors.category_id}</FormHelperText>
